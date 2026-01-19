@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cuxxyzhost</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  input, select, button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .message {
+    margin-bottom: 15px;
+    color: green;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>cuxxyzhost</h1>
+
+  <label>$ Email</label>
+  <input type="email" id="email" placeholder="isi email mu">
+
+  <label>$ Jumlah</label>
+  <select id="jumlah">
+    <option value="">Gwordown</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+  </select>
+
+  <label>$ Harga</label>
+  <p style="color: gray;">(uji coba, belum ada)</p>
+
+  <button id="orderBtn">Order</button>
+
+  <p id="message" class="message"></p>
+</div>
+
+<script>
+const orderBtn = document.getElementById('orderBtn');
+const emailInput = document.getElementById('email');
+const jumlahSelect = document.getElementById('jumlah');
+const messageEl = document.getElementById('message');
+
+orderBtn.addEventListener('click', () => {
+  const email = emailInput.value.trim();
+  const jumlah = jumlahSelect.value;
+
+  if (!email) {
+    alert('Silakan isi email');
+    return;
+  }
+  if (!jumlah) {
+    alert('Silakan pilih jumlah');
+    return;
+  }
+
+  // Kirim request ke API MangzaxHost
+  const apiURL = `https://pa.mangzaxhost.com/order/Mangzax?email=${encodeURIComponent(email)}&jumlah=${jumlah}`;
+
+  fetch(apiURL)
+    .then(res => res.json())
+    .then(data => {
+      console.log('API Response:', data);
+      messageEl.textContent = 'Order dikirim! Cek email mu.';
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      messageEl.textContent = 'Terjadi kesalahan saat order';
+    });
+});
+</script>
+
+</body>
+  </html>
